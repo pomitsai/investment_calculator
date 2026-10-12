@@ -1,366 +1,77 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
+<!doctype html>
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 大阪親子旅遊規劃 | Osaka Family Trip</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'osaka-blue': '#0ea5e9',
-                        'osaka-dark': '#0c4a6e',
-                        'sakura-pink': '#fdf2f8',
-                        'gold-accent': '#f59e0b',
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f8fafc; }
-        .chart-container { position: relative; width: 100%; max-width: 650px; margin: 0 auto; height: 350px; }
-        .timeline-line::before {
-            content: ''; position: absolute; top: 0; bottom: 0; left: 1.25rem; width: 2px;
-            background-color: #e2e8f0; z-index: 0;
-        }
-        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .hide-scroll::-webkit-scrollbar { display: none; }
-        .tab-active { background-color: #0ea5e9; color: white; transform: scale(1.05); }
-    </style>
-
-    <!-- Chosen Palette: "Modern Osaka" - Light slate background with sky-blue and amber accents. -->
-    <!-- Application Structure Plan: 
-         A dashboard approach prioritizing the Daily Itinerary as the primary user task. 
-         Logistics (flights/hotels) are secondary to allow users to first see the flow of the trip. 
-         Interactive elements like filters for food and tabs for days minimize clutter. -->
-    <!-- Visualization & Content Choices:
-         - Flight Analysis: Bar & Line combo (Chart.js) to show price vs comfort.
-         - Daily Itinerary: Vertical timeline with dynamic JS injection.
-         - Food Grid: JS filterable cards with Google Maps direct search URLs.
-         - Map Links: Fixed to use 'https://www.google.com/maps/search/?api=1&query=' for 100% reliability. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101a2b">
+<title>投資槓桿計算器｜資產與負債分析</title>
+<style>
+:root{font-family:Inter,"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;color:#172338;background:#f4f6fa;font-synthesis:none}*{box-sizing:border-box}body{margin:0;min-height:100vh}.header{background:#101a2b;color:#fff;padding:42px 20px 88px}.headinner,.wrap{max-width:1050px;margin:auto}.eyebrow{font-size:12px;letter-spacing:.17em;color:#a1b5df;font-weight:700}.header h1{font-size:clamp(27px,4vw,39px);margin:12px 0 10px;letter-spacing:-.035em}.header p{color:#c5cede;line-height:1.8;margin:0;font-size:14px}.wrap{padding:0 20px 64px;margin-top:-48px}.main{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}.panel{background:#fff;border:1px solid #e6ebf2;border-radius:20px;padding:28px;box-shadow:0 9px 30px #1e2a4510}.panel h2{margin:0 0 8px;font-size:19px}.hint{font-size:13px;color:#66748b;line-height:1.7;margin:0 0 26px}.field{margin:0 0 22px}.field label{display:block;font-size:14px;font-weight:700;margin-bottom:9px}.field .sub{font-weight:400;color:#7e899b;font-size:12px}.inputwrap{display:flex;align-items:center;border:1.5px solid #dce3ee;border-radius:11px;height:53px;background:#fcfdff;overflow:hidden;transition:.2s}.inputwrap:focus-within{border-color:#4168d5;box-shadow:0 0 0 3px #4168d51c}.prefix{padding:0 13px;color:#718098;font-weight:700;font-size:14px;border-right:1px solid #e7ecf4}.inputwrap input{min-width:0;flex:1;border:0;outline:0;padding:13px;font-size:18px;color:#15233a;background:transparent;font-variant-numeric:tabular-nums}.inputwrap input::placeholder{color:#b1b9c6}.actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:5px}.btn{border:1px solid #dbe2ec;border-radius:10px;background:#fff;color:#34445c;cursor:pointer;padding:10px 16px;font-weight:700}.btn:hover{background:#f5f7fb}.note{font-size:12px;color:#7c8899}.summary{background:#f2f5ff;border-radius:14px;padding:22px;margin-top:18px}.overline{font-size:12px;font-weight:700;letter-spacing:.035em;color:#526b9f}.big{font-size:clamp(31px,4vw,45px);font-weight:800;letter-spacing:-.055em;line-height:1.4;color:#2449a0;font-variant-numeric:tabular-nums}.big small{font-size:17px;letter-spacing:0;font-weight:600;margin-left:6px}.helper{color:#62738f;line-height:1.65;font-size:12px}.divider{height:1px;background:#e9edf3;margin:20px 0}.stat{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin:16px 0;font-size:14px}.stat .name{color:#69778b}.stat strong{font-variant-numeric:tabular-nums;text-align:right}.secondary{color:#15233a!important}.barlabel{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:#65758d;margin:24px 0 9px}.bar{height:12px;background:#e9edf5;border-radius:99px;overflow:hidden;display:flex}.bar .equity{background:#5578dc;transition:width .25s}.bar .debt{background:#e6a35b;transition:width .25s}.legend{display:flex;gap:18px;margin-top:10px;font-size:12px;color:#708096}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;background:#5578dc}.dot.orange{background:#e6a35b}.warning{background:#fff5e9;color:#7b4e14;border:1px solid #f4d8b2;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.7;margin-top:15px}.section{margin-top:20px}.section h3{font-size:17px;margin:0 0 14px}.formula{background:#fff;border:1px solid #e6ebf2;border-radius:17px;padding:23px;display:grid;grid-template-columns:1fr 1fr;gap:22px}.formula strong{font-size:14px}.formula p{font-size:13px;color:#66758b;line-height:1.8;margin:8px 0}.formula code{display:block;border-radius:8px;padding:12px;background:#f4f6fb;color:#2b467f;font-size:13px;white-space:normal;line-height:1.7}.disclaimer{margin-top:18px;color:#8490a1;font-size:12px;line-height:1.8}.pill{font-size:11px;border:1px solid #cfdaed;border-radius:99px;padding:4px 8px;color:#5a70a3;white-space:nowrap}@media(max-width:750px){.main,.formula{grid-template-columns:1fr}.header{padding:32px 20px 76px}.panel{padding:22px}.wrap{margin-top:-44px}.formula{gap:18px}.header h1{font-size:30px}}
+.fxbox{background:#f5f8fe;border:1px solid #dfe7f6;border-radius:14px;padding:16px;margin:-4px 0 22px}.fxhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;font-size:13px}.fxhead .btn{padding:7px 10px;font-size:12px}.fxinfo{font-size:12px;line-height:1.6;color:#687a92;margin:9px 0 0}.conversion{border-top:1px solid #dde5f0;padding-top:12px;margin-top:14px;display:flex;justify-content:space-between;gap:10px;font-size:13px}.conversion strong{font-variant-numeric:tabular-nums}
+</style>
 </head>
-<body class="antialiased text-slate-700">
-
-    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <span class="text-2xl">🏯</span>
-                <span class="font-bold text-xl text-osaka-dark">大阪<span class="text-osaka-blue">2026</span></span>
-            </div>
-            <div class="hidden md:flex space-x-6 text-sm font-medium">
-                <a href="#logistics" class="hover:text-osaka-blue transition">交通住宿</a>
-                <a href="#itinerary" class="hover:text-osaka-blue transition">六日行程</a>
-                <a href="#food" class="hover:text-osaka-blue transition">必吃清單</a>
-                <a href="#guide" class="hover:text-osaka-blue transition">行前準備</a>
-            </div>
-            <button class="md:hidden text-2xl" onclick="toggleMenu()">☰</button>
-        </div>
-    </nav>
-
-    <!-- Hero -->
-    <header class="bg-gradient-to-b from-blue-50 to-white py-16 px-4 text-center">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">大阪親子六日遊客製行程</h1>
-        <p class="text-lg text-slate-500">2026/06/12 - 06/17 ｜ 高CP值、兒童友善、動線流暢</p>
-    </header>
-
-    <main class="max-w-7xl mx-auto px-4 pb-20 space-y-24">
-
-        <!-- Logistics Section -->
-        <section id="logistics" class="scroll-mt-20">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                    <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
-                        <span class="text-osaka-blue">✈️</span> 航空公司 CP 值比較
-                    </h3>
-                    <div class="chart-container">
-                        <canvas id="flightChart"></canvas>
-                    </div>
-                    <div class="mt-6 text-xs text-slate-500 bg-slate-50 p-4 rounded-lg">
-                        <p>* 數據預估：2026年6月旺季前夕價格。建議提早6個月訂票。</p>
-                        <p class="mt-2 text-osaka-blue">推薦：星宇或長榮，親子友善服務較佳。</p>
-                    </div>
-                </div>
-
-                <div class="space-y-6">
-                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                        <span class="text-osaka-blue">🏨</span> 推薦住宿 (梅田/難波區域)
-                    </h3>
-                    <div class="grid grid-cols-1 gap-4" id="hotelList">
-                        <!-- JS injected -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Itinerary Section -->
-        <section id="itinerary" class="scroll-mt-20">
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-3xl font-bold">每日詳細行程</h2>
-                <div class="text-sm font-medium text-osaka-blue">點擊地名開啟地圖</div>
-            </div>
-            
-            <div class="flex space-x-2 overflow-x-auto pb-4 hide-scroll" id="dayTabs">
-                <!-- JS injected tabs -->
-            </div>
-
-            <div id="timelineContent" class="bg-white rounded-3xl p-6 md:p-10 shadow-lg border border-slate-100 min-h-[400px]">
-                <!-- JS injected timeline -->
-            </div>
-        </section>
-
-        <!-- Food Section -->
-        <section id="food" class="scroll-mt-20">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4">大阪必吃美食</h2>
-                <div class="flex flex-wrap justify-center gap-2" id="foodFilters">
-                    <!-- JS filters -->
-                </div>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="foodGrid">
-                <!-- JS food cards -->
-            </div>
-        </section>
-
-        <!-- Guide & Souvenirs -->
-        <section id="guide" class="scroll-mt-20 grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-                <h3 class="text-2xl font-bold mb-6">🎒 行李準備清單</h3>
-                <div id="checklist" class="space-y-3">
-                    <!-- JS checklist -->
-                </div>
-            </div>
-            <div class="bg-osaka-dark text-white p-8 rounded-2xl shadow-xl">
-                <h3 class="text-2xl font-bold mb-6">🎁 2026 必買伴手禮</h3>
-                <div id="souvenirs" class="space-y-4">
-                    <!-- JS souvenirs -->
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="bg-slate-900 text-slate-500 py-12 text-center text-sm">
-        <p>© 2026 大阪親子旅遊規劃師. All rights reserved.</p>
-        <p class="mt-2 italic">所有地圖連結已修正為 Google Maps 官方搜尋 API。</p>
-    </footer>
-
-    <script>
-        // --- 全域資料 ---
-        const DATA = {
-            hotels: [
-                { name: "大阪格蘭比亞飯店", zone: "梅田", price: "NT$ 6,000+", desc: "JR大阪站正上方，前往京都、姬路無需轉乘，親子首選。", query: "Hotel Granvia Osaka" },
-                { name: "大阪十字飯店 (Cross Hotel)", zone: "難波", price: "NT$ 5,500+", desc: "心齋橋道頓堀旁，吃美食最方便，客房空間大。", query: "Cross Hotel Osaka" },
-                { name: "Dormy Inn 難波溫泉", zone: "難波", price: "NT$ 4,500+", desc: "免費宵夜拉麵與天然溫泉，高CP值熱門選擇。", query: "Dormy Inn Premium Namba" }
-            ],
-            days: [
-                { 
-                    day: 1, date: "6/12 (五)", title: "抵達大阪 & 道頓堀", 
-                    events: [
-                        { time: "11:00", title: "抵達關西機場", detail: "領取 JR Pass、網卡，搭乘 HARUKA 往市區。", icon: "✈️" },
-                        { time: "15:00", title: "大阪城公園", detail: "搭乘小火車，帶孩子散步看古城。", icon: "🏯", loc: "大阪城公園" },
-                        { time: "18:00", title: "道頓堀/心齋橋", detail: "吃大阪燒、章魚燒，拍固力果跑跑人。", icon: "🐙", loc: "道頓堀" }
-                    ]
-                },
-                { 
-                    day: 2, date: "6/13 (六)", title: "環球影城全日遊", 
-                    events: [
-                        { time: "08:00", title: "USJ 開園", detail: "務必購買快速通關(Express)，入園先衝任天堂世界。", icon: "🍄", loc: "日本環球影城" },
-                        { time: "13:00", title: "哈利波特區", detail: "喝奶油啤酒，看霍格華茲城堡。", icon: "⚡", loc: "日本環球影城 哈利波特" },
-                        { time: "17:00", title: "小小兵樂園", detail: "適合親子與小學生的趣味設施。", icon: "🍌", loc: "日本環球影城 小小兵" }
-                    ]
-                },
-                { 
-                    day: 3, date: "6/14 (日)", title: "世界遺產姬路城", 
-                    events: [
-                        { time: "09:30", title: "姬路城天守閣", detail: "日本第一名城，白色建築外觀極美。", icon: "🏰", loc: "姬路城" },
-                        { time: "15:00", title: "神戶港夜景", detail: "回程順遊神戶港，欣賞紅塔夜景與逛 Mall。", icon: "⚓", loc: "神戶港" }
-                    ]
-                },
-                { 
-                    day: 4, date: "6/15 (一)", title: "古都京都巡禮", 
-                    events: [
-                        { time: "10:00", title: "金閣寺", detail: "閃耀的金色建築，京都必訪名勝。", icon: "✨", loc: "金閣寺" },
-                        { time: "14:00", title: "清水寺 & 二年坂", detail: "穿和服漫步古道，看清水舞台。", icon: "⛩️", loc: "清水寺" }
-                    ]
-                },
-                { 
-                    day: 5, date: "6/16 (二)", title: "天保山親子區", 
-                    events: [
-                        { time: "10:00", title: "海遊館", detail: "世界級水族館，看巨大的鯨鯊。", icon: "🦈", loc: "海遊館" },
-                        { time: "14:00", title: "樂高樂園探索中心", detail: "適合國小生的室內積木天堂。", icon: "🧱", loc: "LEGOLAND Discovery Center Osaka" }
-                    ]
-                },
-                { 
-                    day: 6, date: "6/17 (三)", title: "黑門市場 & 回家", 
-                    events: [
-                        { time: "09:00", title: "黑門市場", detail: "享受新鮮海產、和牛串燒早餐。", icon: "🍣", loc: "黑門市場" },
-                        { time: "15:00", title: "關西機場辦理登機", detail: "最後免稅店掃貨回台灣。", icon: "✈️" }
-                    ]
-                }
-            ],
-            food: [
-                { name: "一蘭拉麵", type: "正餐", loc: "一蘭拉麵 道頓堀店" },
-                { name: "千房大阪燒", type: "正餐", loc: "千房 道頓堀" },
-                { name: "HARBS 水果千層", type: "甜點", loc: "HARBS 梅田" },
-                { name: "本家章魚燒", type: "小吃", loc: "本家 大たこ" },
-                { name: "力丸燒肉吃到飽", type: "正餐", loc: "燒肉力丸 心齋橋" },
-                { name: "551蓬萊肉包", type: "小吃", loc: "551蓬萊 難波" },
-                { name: "茶寮都路里", type: "京都", loc: "茶寮都路里 祇園" },
-                { name: "蟹道樂", type: "正餐", loc: "蟹道樂 本店" }
-            ],
-            checklist: ["護照正本 (效期6個月)", "Visit Japan Web 登錄 QR", "日本上網卡/eSIM", "交通卡 ICOCA", "舒適慢跑鞋 (每日萬步)", "行動電源"],
-            souvenirs: ["貴婦版 Pocky (Bâton d'or)", "老爺爺起司蛋糕", "呼吸巧克力", "小倉山莊仙貝", "任天堂限定周邊"]
-        };
-
-        // --- Helper: Generate Google Maps Search URL ---
-        function getMapUrl(query) {
-            return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
-        }
-
-        // --- 初始化圖表 ---
-        function initChart() {
-            const ctx = document.getElementById('flightChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['星宇', '長榮', '華航', '樂桃', '虎航'],
-                    datasets: [{
-                        label: '機票預估價格 (NTD)',
-                        data: [17500, 16000, 15500, 11000, 9500],
-                        backgroundColor: '#0ea5e988',
-                        borderColor: '#0ea5e9',
-                        borderWidth: 1
-                    }, {
-                        label: '親子友善分',
-                        type: 'line',
-                        data: [9.5, 9, 8.5, 6, 5],
-                        borderColor: '#f59e0b',
-                        fill: false
-                    }]
-                },
-                options: { maintainAspectRatio: false, responsive: true }
-            });
-        }
-
-        // --- 初始化 UI 元件 ---
-        function initUI() {
-            // 住宿
-            const hotelContainer = document.getElementById('hotelList');
-            hotelContainer.innerHTML = DATA.hotels.map(h => `
-                <div class="bg-white border border-slate-200 p-4 rounded-xl flex justify-between items-center hover:shadow-md transition">
-                    <div>
-                        <div class="text-xs text-osaka-blue font-bold">${h.zone}</div>
-                        <div class="font-bold text-slate-800">${h.name}</div>
-                        <div class="text-xs text-slate-500">${h.desc}</div>
-                    </div>
-                    <a href="${getMapUrl(h.query)}" target="_blank" class="bg-slate-50 p-2 rounded-lg text-lg">📍</a>
-                </div>
-            `).join('');
-
-            // 行程 Tabs
-            const tabsContainer = document.getElementById('dayTabs');
-            tabsContainer.innerHTML = DATA.days.map((d, i) => `
-                <button onclick="showDay(${d.day})" id="tab-${d.day}" class="flex-shrink-0 px-6 py-3 rounded-xl font-bold bg-white text-slate-400 border border-slate-100 transition-all ${i===0?'tab-active':''}">
-                    Day ${d.day}
-                </button>
-            `).join('');
-
-            // 食物
-            renderFood('全部');
-            const foodFilters = document.getElementById('foodFilters');
-            const categories = ['全部', '正餐', '小吃', '甜點', '京都'];
-            foodFilters.innerHTML = categories.map(c => `
-                <button onclick="renderFood('${c}')" class="px-4 py-1 rounded-full border border-slate-200 text-sm hover:bg-osaka-blue hover:text-white transition">${c}</button>
-            `).join('');
-
-            // 清單
-            document.getElementById('checklist').innerHTML = DATA.checklist.map(i => `
-                <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-50 rounded">
-                    <input type="checkbox" class="w-4 h-4 accent-osaka-blue"> <span class="text-sm">${i}</span>
-                </label>
-            `).join('');
-
-            // 伴手禮
-            document.getElementById('souvenirs').innerHTML = DATA.souvenirs.map(s => `
-                <div class="flex items-center gap-3 text-sm">
-                    <span class="text-gold-accent">★</span> <span>${s}</span>
-                </div>
-            `).join('');
-
-            // 初始顯示第一天
-            showDay(1);
-        }
-
-        function showDay(dayNum) {
-            const day = DATA.days.find(d => d.day === dayNum);
-            const container = document.getElementById('timelineContent');
-            
-            // 更新 Tab 樣式
-            document.querySelectorAll('[id^="tab-"]').forEach(t => t.classList.remove('tab-active'));
-            document.getElementById(`tab-${dayNum}`).classList.add('tab-active');
-
-            container.innerHTML = `
-                <div class="fade-in">
-                    <div class="mb-6">
-                        <h3 class="text-2xl font-bold text-osaka-dark">${day.date} - ${day.title}</h3>
-                    </div>
-                    <div class="relative space-y-10 timeline-line pl-2">
-                        ${day.events.map(e => `
-                            <div class="relative z-10 flex gap-4">
-                                <div class="w-10 h-10 bg-white border-2 border-osaka-blue rounded-full flex items-center justify-center text-xl shadow-sm">
-                                    ${e.icon}
-                                </div>
-                                <div class="flex-1">
-                                    <div class="text-sm font-bold text-osaka-blue">${e.time}</div>
-                                    <div class="font-bold text-slate-800 text-lg">
-                                        ${e.loc ? `<a href="${getMapUrl(e.loc)}" target="_blank" class="hover:underline">${e.title} 📍</a>` : e.title}
-                                    </div>
-                                    <p class="text-slate-500 text-sm mt-1">${e.detail}</p>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-        }
-
-        function renderFood(cat) {
-            const grid = document.getElementById('foodGrid');
-            const filtered = cat === '全部' ? DATA.food : DATA.food.filter(f => f.type === cat);
-            grid.innerHTML = filtered.map(f => `
-                <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 fade-in flex justify-between items-center group hover:border-osaka-blue transition">
-                    <div>
-                        <div class="text-[10px] text-slate-400 font-bold uppercase">${f.type}</div>
-                        <div class="font-bold text-slate-700">${f.name}</div>
-                    </div>
-                    <a href="${getMapUrl(f.loc)}" target="_blank" class="text-xl group-hover:scale-125 transition">🍴</a>
-                </div>
-            `).join('');
-        }
-
-        function toggleMenu() {
-            alert("此功能已優化為 SPA，請直接滾動瀏覽。");
-        }
-
-        window.onload = () => {
-            initChart();
-            initUI();
-        };
-    </script>
-</body>
-</html>
+<body>
+<header class="header"><div class="headinner"><div class="eyebrow">PERSONAL FINANCE / LEVERAGE</div><h1>投資槓桿計算器</h1><p>輸入股票市值、銀行活存與剩餘信貸本金，立即掌握你的資產槓桿與股票曝險。</p></div></header>
+<main class="wrap"><div class="main">
+<section class="panel" aria-labelledby="inputTitle"><h2 id="inputTitle">輸入你的財務數據</h2><p class="hint">台股輸入新台幣、美股輸入美元。匯率自動更新，結果統一換算為新台幣。</p>
+<div class="field"><label for="twStocks">台股總市值 <span class="sub">（新台幣）</span></label><div class="inputwrap"><span class="prefix">NT$</span><input id="twStocks" type="text" inputmode="decimal" autocomplete="off" placeholder="例如：2,000,000"></div></div>
+<div class="field"><label for="usStocks">美股總市值 <span class="sub">（美元 USD）</span></label><div class="inputwrap"><span class="prefix">US$</span><input id="usStocks" type="text" inputmode="decimal" autocomplete="off" placeholder="例如：30,000"></div></div>
+<div class="fxbox"><div class="fxhead"><strong>美元兌新台幣參考匯率</strong><button class="btn" id="refreshRate" type="button">更新匯率</button></div><div class="inputwrap"><span class="prefix">1 USD = NT$</span><input id="fxRate" type="text" inputmode="decimal" autocomplete="off" placeholder="連線取得匯率中…" aria-label="美元兌新台幣匯率"></div><p class="fxinfo" id="fxStatus" role="status">正在取得最新可用參考匯率…</p><p class="fxinfo">可手動修改匯率。免費公開匯率通常每日更新，非逐秒即時成交價。</p><div class="conversion">美股折合新台幣 <strong id="usTwd">—</strong></div></div>
+<div class="field"><label for="cash">銀行活存總額</label><div class="inputwrap"><span class="prefix">NT$</span><input id="cash" type="text" inputmode="decimal" autocomplete="off" placeholder="例如：500,000" aria-label="銀行活存總額"></div></div>
+<div class="field"><label for="loan">信貸剩餘本金 <span class="sub">（目前還欠多少，不是核貸額度）</span></label><div class="inputwrap"><span class="prefix">NT$</span><input id="loan" type="text" inputmode="decimal" autocomplete="off" placeholder="例如：1,000,000" aria-label="信貸剩餘本金"></div></div>
+<div class="actions"><button class="btn" id="reset" type="button">清除財務數據</button><span class="note">本機試算 · 財務金額不會上傳</span></div></section>
+<section class="panel" aria-label="計算結果"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2>槓桿分析結果</h2><span class="pill">即時計算</span></div><p class="hint" style="margin-bottom:0">下方兩種倍率代表不同概念，不應混為一談。</p>
+<div class="summary"><div class="overline">總資產槓桿倍數</div><div class="big" id="assetLev">—<small>倍</small></div><div class="helper">總資產 ÷ 淨資產。衡量整體資產相對自有淨值的放大程度。</div></div>
+<div class="summary" style="background:#f7f8fc"><div class="overline">股票曝險倍數</div><div class="big secondary" id="stockLev">—<small>倍</small></div><div class="helper">股票總市值 ÷ 淨資產。衡量股票價格波動對自有淨值的曝險程度。</div></div>
+<div class="divider"></div><div class="stat"><span class="name">股票總市值（NT$）</span><strong id="allStocks">—</strong></div><div class="stat"><span class="name">總資產</span><strong id="assets">—</strong></div><div class="stat"><span class="name">剩餘信貸本金</span><strong id="debt">—</strong></div><div class="stat"><span class="name">淨資產（自有權益）</span><strong id="equity">—</strong></div><div class="stat"><span class="name">負債占資產比例</span><strong id="debtRatio">—</strong></div>
+<div class="barlabel"><span>資產資金結構</span><span id="ratioLabel">待輸入</span></div><div class="bar" role="img" aria-label="自有權益與負債比例"><div id="equityBar" class="equity" style="width:0%"></div><div id="debtBar" class="debt" style="width:0%"></div></div><div class="legend"><span><i class="dot"></i>淨資產</span><span><i class="dot orange"></i>信貸負債</span></div><div id="warning" class="warning" hidden></div>
+</section></div>
+<section class="section"><h3>計算公式與定義</h3><div class="formula"><div><strong>① 總資產槓桿倍數</strong><p>看的是整體財務槓桿，包括持有現金。</p><code>（台股市值＋美股美元市值 × USD/TWD 匯率＋銀行活存）÷（股票市值＋銀行活存－剩餘信貸本金）</code></div><div><strong>② 股票曝險倍數</strong><p>看的是股票部位相對淨資產有多大，活存不計入股票曝險。</p><code>股票總市值（台股＋美股折台幣）÷ 淨資產</code></div></div><p class="disclaimer">匯率使用公開資料的最新可用參考價，可能不同於銀行實際買賣報價；需要網路才能自動更新。本工具假設僅有輸入的股票、活存和信貸本金，未包含不動產、其他投資、其他負債、應計利息及稅費。它衡量目前資產負債結構，無法判斷信貸資金是否實際投入股票，也不代表券商融資維持率。當淨資產為零或負數時，倍率不具一般槓桿意義。</p></section></main>
+<script>
+(()=>{
+ const $=id=>document.getElementById(id),ids=['twStocks','usStocks','cash','loan'];
+ const fmt=new Intl.NumberFormat('zh-TW',{maximumFractionDigits:0});
+ const number=s=>{const t=s.trim().replace(/,/g,'');return t===''?null:(/^(?:\d+\.?\d*|\.\d+)$/.test(t)?Number(t):NaN)};
+ const money=n=>'NT$ '+fmt.format(n);
+ let fxSourceDate='';let requestId=0;
+ function clearResults(){['assets','debt','equity','debtRatio','allStocks'].forEach(id=>$(id).textContent='—');['assetLev','stockLev'].forEach(id=>$(id).innerHTML='—<small>倍</small>');$('equityBar').style.width='0%';$('debtBar').style.width='0%';$('ratioLabel').textContent='待輸入';}
+ function update(){
+  const raw=ids.map(id=>number($(id).value)),rate=number($('fxRate').value),warn=$('warning');warn.hidden=true;warn.textContent='';
+  const [tw,us,cash,loan]=raw;
+  $('usTwd').textContent=Number.isFinite(us)&&us>=0&&Number.isFinite(rate)&&rate>0?money(us*rate):'—';
+  if(raw.some(v=>v!==null&&(!Number.isFinite(v)||v<0))||(rate!==null&&(!Number.isFinite(rate)||rate<=0))){clearResults();warn.hidden=false;warn.textContent='請輸入有效的非負金額，匯率必須大於零。';return;}
+  if(raw.some(v=>v===null)||(us>0&&rate===null)){clearResults();return;}
+  const stocks=tw+us*(rate||0),assets=stocks+cash,equity=assets-loan;
+  $('allStocks').textContent=money(stocks);$('assets').textContent=money(assets);$('debt').textContent=money(loan);$('equity').textContent=money(equity);$('debtRatio').textContent=assets>0?(loan/assets*100).toFixed(1)+'%':'—';
+  const lev=n=>Number.isFinite(n)?n.toFixed(2)+'<small>倍</small>':'—<small>倍</small>';
+  $('assetLev').innerHTML=equity>0?lev(assets/equity):'—<small>倍</small>';
+  $('stockLev').innerHTML=equity>0?lev(stocks/equity):'—<small>倍</small>';
+  const eqPct=assets>0?Math.min(100,Math.max(0,equity/assets*100)):0,debtPct=assets>0?100-eqPct:0;
+  $('equityBar').style.width=eqPct+'%';$('debtBar').style.width=debtPct+'%';$('ratioLabel').textContent=assets>0?`權益 ${eqPct.toFixed(1)}% / 負債 ${debtPct.toFixed(1)}%`:'無資產';
+  if(equity<=0){warn.hidden=false;warn.textContent='淨資產為零或負數，槓桿倍率不具一般解讀意義，請優先檢視負債。';}
+  else if(loan>assets*.7){warn.hidden=false;warn.textContent='提醒：信貸本金占總資產超過 70%。當資產下跌時，淨值可能快速縮減。';}
+ }
+ async function fetchFx(){
+  const id=++requestId,btn=$('refreshRate');btn.disabled=true;$('fxStatus').textContent='正在取得最新可用匯率…';
+  try{
+   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),9000);
+   let res;try{res=await fetch('https://open.er-api.com/v6/latest/USD',{signal:controller.signal,cache:'no-store'});}finally{clearTimeout(timer)}
+   if(!res.ok)throw Error('HTTP '+res.status);
+   const data=await res.json(),rate=data?.rates?.TWD;
+   if(data.result!=='success'||!Number.isFinite(rate)||rate<=0)throw Error('匯率資料不完整');
+   if(id!==requestId)return;
+   $('fxRate').value=rate.toFixed(4);fxSourceDate=data.time_last_update_utc||'';
+   const dt=fxSourceDate?new Date(fxSourceDate):null;
+   const ts=dt&&!Number.isNaN(dt.getTime())?dt.toLocaleString('zh-TW',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}):'來源未提供';
+   $('fxStatus').textContent=`匯率已更新：1 USD = NT$ ${rate.toFixed(4)}｜資料更新時間（台灣）：${ts}｜來源：ExchangeRate-API`;
+   update();
+  }catch(e){if(id!==requestId)return;$('fxStatus').textContent='無法連接匯率服務。請手動輸入 USD/TWD 匯率後即可試算。';update();}
+  finally{if(id===requestId)btn.disabled=false;}
+ }
+ ids.concat('fxRate').forEach(id=>{$(id).addEventListener('input',()=>{if(id==='fxRate'){$('fxStatus').textContent='目前使用手動輸入的匯率；按「更新匯率」可重新取得公開報價。';++requestId;$('refreshRate').disabled=false;}update()});$(id).addEventListener('blur',e=>{const n=number(e.target.value);if(n!==null&&Number.isFinite(n)&&n>=0)e.target.value=id==='fxRate'?String(n):fmt.format(n)});$(id).addEventListener('focus',e=>{e.target.value=e.target.value.replace(/,/g,'')})});
+ $('refreshRate').addEventListener('click',fetchFx);
+ $('reset').addEventListener('click',()=>{ids.forEach(id=>$(id).value='');update();$('twStocks').focus()});
+ update();fetchFx();
+})();
+</script>
+</body></html>
