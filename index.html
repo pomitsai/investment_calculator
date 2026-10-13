@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#eef4fb">
+<meta name="theme-color" content="#060b16">
 <title>個人投資財務儀表板｜槓桿、現金流與風險</title>
 <style>
 :root{
@@ -164,10 +164,163 @@ body::after{
 @media(max-width:1060px){.main{grid-template-columns:1fr}.headinner{padding-right:0}.tech-stage{position:relative;right:auto;top:auto;width:min(100%,360px);height:190px;margin:26px auto 0}.header{padding-bottom:90px}.wrap{margin-top:-48px}}
 @media(max-width:750px){.triple,.gridstats{grid-template-columns:1fr 1fr}.formula{grid-template-columns:1fr}.panel{padding:22px}.header{padding-top:28px;padding-bottom:84px}.header h1{font-size:clamp(28px,8vw,38px)}.wrap{padding:0 14px 52px}.actions,.fxhead,.historyactions,.stress-head,.bank-header,.bank-total,.conversion{align-items:flex-start}.bank-row{grid-template-columns:1fr;gap:9px}.bank-remove{width:100%}.bank-name-label{margin-bottom:0}.table-scroll{border-radius:12px}}
 @media(max-width:460px){.triple,.gridstats{grid-template-columns:1fr}.chartbox{min-height:190px}.big{font-size:34px}.coverage-strong{font-size:30px}.header p{font-size:14px}.eyebrow{font-size:11px;letter-spacing:.14em;padding:7px 12px}.scanner-beam{height:150px}.machine-core{width:146px;height:78px}}
+
+/* Premium fintech visual direction: precise, calm, data-first */
+:root{--accent:#165db2;--accent-2:#148ca4;--glow:rgba(22,93,178,.12);--shadow:0 16px 46px rgba(28,59,103,.085);--text:#17263c;--text-soft:#4d617b}
+body{background:radial-gradient(ellipse at 90% 0,rgba(156,191,222,.14),transparent 45%),linear-gradient(180deg,#f5f8fc 0%,#edf2f8 47%,#f6f8fb 100%)}
+body::before{background-size:54px 54px;opacity:.24;animation:none}
+body::after{background:none;animation:none}
+.header{padding:45px 20px 108px;background:linear-gradient(113deg,#ffffff 0%,#f4f8fc 56%,#e9f1f9 100%);border-bottom:1px solid #dbe5f0}
+.header::before{background:repeating-linear-gradient(90deg,transparent 0 119px,rgba(85,120,164,.035) 119px 120px);animation:none}
+.header::after{top:auto;bottom:0;left:0;width:100%;height:2px;transform:none;background:linear-gradient(90deg,transparent 4%,#76b6ce 30%,#2a71b6 60%,transparent 93%);animation:none}
+.header h1{font-weight:830;letter-spacing:-.05em;color:#122238}
+.header p{color:#526781}
+.headinner{padding-right:425px}
+.eyebrow{border:0;border-left:3px solid #2275b9;border-radius:0;padding:3px 0 3px 12px;background:none;box-shadow:none;font-size:11px;color:#476487;letter-spacing:.15em}
+.eyebrow::before{display:none}
+.fintech-visual{position:absolute;right:20px;top:20px;width:380px;height:220px;border:1px solid #d7e4f0;border-radius:13px;background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(241,248,254,.92));box-shadow:0 18px 32px rgba(35,82,130,.09),inset 0 1px 0 #fff;padding:15px 18px;pointer-events:none;overflow:hidden}
+.fintech-visual::after{content:"";position:absolute;width:95px;height:100%;top:0;left:-120px;background:linear-gradient(90deg,transparent,rgba(117,194,225,.11),transparent);transform:skewX(-15deg);animation:fintechScan 9s ease-in-out infinite}
+.market-head,.market-footer{display:flex;justify-content:space-between;align-items:center;font-size:9px;letter-spacing:.13em;font-weight:850;color:#567089}
+.live-dot{display:inline-block;vertical-align:middle;margin-right:5px;width:6px;height:6px;border-radius:50%;background:#219980;box-shadow:0 0 0 3px #21998019}
+.market-time{color:#27846e;letter-spacing:.055em}
+.market-metrics{display:flex;justify-content:space-between;align-items:center;margin:13px 0 0}
+.market-metrics small{display:block;font-size:9px;letter-spacing:.12em;color:#7890a7}
+.market-metrics strong{display:block;font-size:21px;color:#203958;letter-spacing:-.045em;margin-top:2px;font-weight:850}
+.market-metrics em{font-style:normal;font-weight:500;color:#247c9e}
+.signal-bars{position:relative!important;display:flex;align-items:flex-end;gap:4px;height:28px;opacity:.72}
+.signal-bars i{position:relative!important;display:block;width:4px;height:30%;background:#6e9fc5;border-radius:2px;animation:signal 1.6s ease-in-out infinite alternate}
+.signal-bars i:nth-child(2){height:75%;animation-delay:.18s}.signal-bars i:nth-child(3){height:45%;animation-delay:.28s}.signal-bars i:nth-child(4){height:95%;animation-delay:.12s}.signal-bars i:nth-child(5){height:56%;animation-delay:.42s}.signal-bars i:nth-child(6){height:78%;animation-delay:.34s}.signal-bars i:nth-child(7){height:38%;animation-delay:.22s}
+.market-chart{width:100%;height:104px;display:block;margin-top:1px;overflow:visible}
+.market-line{stroke-dasharray:540;stroke-dashoffset:540;animation:lineDraw 4.3s ease-out forwards}
+.market-dot{animation:pointGlow 2.6s ease-in-out infinite}
+.market-footer{border-top:1px solid #e3edf6;padding-top:7px;letter-spacing:.08em;font-size:8px}
+.market-footer b{color:#28a1a8}
+.wrap{margin-top:-50px}
+.panel{background:#fff;border:1px solid #e0e8f1;border-radius:16px;box-shadow:var(--shadow);backdrop-filter:none}
+.panel::before{left:28px;right:28px;height:2px;opacity:.35;background:linear-gradient(90deg,transparent,#318abb,transparent)}
+.panel::after{opacity:.3}
+.panel h2,.panel h3{font-weight:800;color:#192d46}
+.summary,.kpi,.fxbox,.slidefield,.bank-row,.bank-total,.chartbox{background:linear-gradient(180deg,#fbfdff,#f6f9fd)}
+.summary,.fxbox,.bank-row,.chartbox{border-color:#e1eaf3}
+.summary{box-shadow:none}
+.btn{box-shadow:none;background:#fff;border-color:#cfdce9;color:#294766}
+.btn:hover{box-shadow:0 6px 15px rgba(34,81,135,.08)}
+.btn.primary{background:linear-gradient(125deg,#235da9,#187da4);border-color:#235da9;box-shadow:0 8px 16px rgba(35,93,169,.13)}
+.inputwrap,.bank-name{background:#fff;box-shadow:none}
+.prefix{background:#f4f7fb}
+.big,.coverage-strong{color:#1d5192}
+.bar .equity{background:linear-gradient(90deg,#276bbb,#13a3b1)}
+.kpi{box-shadow:none;border-color:#e5edf4}
+.kpi::after{display:none}
+.fxbox::before{opacity:.25}
+.bank-row::before{background:linear-gradient(180deg,#2d83bf,#73bacb)}
+@keyframes fintechScan{0%,22%{left:-120px}75%,100%{left:110%}}
+@keyframes lineDraw{to{stroke-dashoffset:0}}
+@keyframes pointGlow{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes signal{to{height:25%}}
+@media(max-width:1060px){.headinner{padding-right:0}.fintech-visual{position:relative;right:auto;top:auto;margin:24px 0 0;max-width:100%;width:380px}.header{padding-bottom:88px}}
+@media(max-width:600px){.fintech-visual{height:218px}.header{padding:27px 16px 78px}.header h1{font-size:clamp(29px,8vw,40px)}.wrap{margin-top:-38px}}
+@media(prefers-reduced-motion:reduce){.market-line{stroke-dashoffset:0}}
+/* AI OPERATIONS CENTER: dark executive dashboard */
+:root{color-scheme:dark;--bg:#060b16;--bg2:#0b1426;--panel:#101b2d;--panel-strong:#142238;--line:#294360;--line-strong:#3f698c;--text:#f0f7ff;--text-soft:#b5c8dd;--text-faint:#91a9c4;--accent:#52bfff;--accent-2:#29ead9;--accent-3:#a28dff;--glow:rgba(49,203,244,.25);--shadow:0 24px 65px rgba(0,3,15,.48);color:#eef7ff;background:#060b16}
+body{color:#eff7ff;background:radial-gradient(ellipse at 78% 4%,rgba(14,93,130,.30),transparent 34%),radial-gradient(ellipse at 6% 55%,rgba(59,44,137,.20),transparent 38%),linear-gradient(180deg,#050b17,#0b1426 42%,#071020);}
+body::before{z-index:0;background:linear-gradient(rgba(63,142,178,.075) 1px,transparent 1px),linear-gradient(90deg,rgba(63,142,178,.075) 1px,transparent 1px);background-size:36px 36px;animation:gridDrift 24s linear infinite}
+body::after{z-index:0;background:linear-gradient(112deg,transparent 43%,rgba(60,197,232,.065) 48%,transparent 54%);animation:lightSweep 13s ease-in-out infinite}
+.header{background:radial-gradient(ellipse at 74% 26%,rgba(15,107,150,.30),transparent 52%),linear-gradient(130deg,#081326,#0d2139 55%,#081323);border-bottom:1px solid rgba(67,193,244,.28);box-shadow:inset 0 -45px 65px rgba(1,10,22,.28)}
+.header::before{background:repeating-linear-gradient(90deg,transparent 0 94px,rgba(62,174,215,.06) 94px 95px),linear-gradient(102deg,transparent 18%,rgba(38,187,219,.09) 37%,transparent 53%);animation:headerScan 18s ease-in-out infinite}
+.header::after{height:2px;top:auto;bottom:0;left:0;right:0;width:100%;background:linear-gradient(90deg,transparent,#00f0ed 34%,#387cff 65%,transparent);box-shadow:0 0 22px rgba(0,224,255,.5);animation:headerLight 8s ease-in-out infinite}
+.header h1{color:#f2f9ff;text-shadow:0 0 30px rgba(63,194,247,.13);font-weight:830}
+.header p{color:#b8cde2}.headinner{padding-right:425px}
+.eyebrow{color:#74e5ef;background:rgba(39,118,158,.1);border:1px solid rgba(82,218,239,.28);border-left:3px solid #42e1e5;border-radius:5px;padding:7px 12px;box-shadow:0 0 24px rgba(33,195,225,.05)}
+.eyebrow::before{display:inline-block;background:#2ff4e2;box-shadow:0 0 12px rgba(47,244,226,.65);width:7px;height:7px}
+.fintech-visual{background:linear-gradient(135deg,rgba(12,29,50,.96),rgba(9,20,41,.96));border:1px solid rgba(59,180,220,.44);border-radius:16px;box-shadow:0 24px 52px rgba(0,5,15,.5),inset 0 1px 0 rgba(111,225,255,.10),0 0 45px rgba(24,143,206,.12);overflow:hidden}
+.fintech-visual::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 7px,rgba(0,220,245,.025) 7px 8px),linear-gradient(112deg,transparent 28%,rgba(48,200,255,.085) 48%,transparent 63%);animation:aiMatrix 12s linear infinite}
+.fintech-visual::after{background:linear-gradient(90deg,transparent,rgba(67,225,245,.18),transparent);animation:fintechScan 6s ease-in-out infinite}
+.market-head,.market-footer{position:relative;color:#85bcd1}.market-time,.market-footer b{color:#45e2ce}.live-dot{background:#3ff1d3;box-shadow:0 0 0 4px rgba(36,255,211,.1),0 0 13px rgba(36,255,211,.6);animation:pulse 2.6s ease-in-out infinite}
+.market-metrics small{color:#a0b7d0}.market-metrics strong{color:#edf9ff}.market-metrics em{color:#47e4ee}.signal-bars i{background:linear-gradient(0deg,#1779d0,#40e7da);box-shadow:0 0 8px rgba(33,203,222,.35)}
+.market-chart{position:relative;filter:drop-shadow(0 0 4px rgba(59,197,228,.4))}.market-footer{border-top-color:rgba(86,173,211,.22)}
+.wrap{position:relative;z-index:2}
+.panel{background:linear-gradient(145deg,rgba(17,31,52,.96),rgba(11,24,42,.98));border:1px solid rgba(91,148,193,.27);border-radius:18px;box-shadow:0 22px 55px rgba(0,5,17,.34),inset 0 1px 0 rgba(130,213,255,.04);backdrop-filter:blur(12px)}
+.panel::before{opacity:.87;background:linear-gradient(90deg,transparent,#20e5e9 33%,#597cff 72%,transparent);box-shadow:0 0 22px rgba(27,228,234,.22);animation:accentSweep 8s linear infinite}
+.panel::after{opacity:.65;background:radial-gradient(circle,rgba(0,172,232,.1),transparent 70%)}
+.panel h2,.panel h3,.section-inline h3{color:#edf6ff}.hint,.helper,.mini-message,.note,.minor,.disclaimer,.fxinfo,.stress-foot,.formula p{color:#afc3d8}
+.field label,.bank-name-label,.slidefield label,.formula strong{color:#dceafb}.field .sub{color:#9db5cd}
+.inputwrap,.bank-name,.plaininput{background:linear-gradient(180deg,#0a1629,#0e2036);border-color:#344e69;box-shadow:inset 0 1px 0 rgba(190,230,255,.04)}
+.inputwrap:focus-within,.bank-name:focus,.plaininput:focus{border-color:#38dcf2;box-shadow:0 0 0 3px rgba(36,213,241,.15),0 0 25px rgba(16,192,232,.10);transform:translateY(-1px)}
+.inputwrap input,.bank-name,.plaininput{color:#f2f9ff}.inputwrap input::placeholder,.plaininput::placeholder,.bank-name::placeholder{color:#738eaa}
+.prefix{background:linear-gradient(180deg,#142b45,#10253d);border-color:#36506b;color:#9fdef3}
+.btn{background:linear-gradient(180deg,#1c334c,#15283e);border-color:#385875;color:#ddecfa;box-shadow:0 5px 14px rgba(0,4,15,.22)}
+.btn:hover{background:linear-gradient(180deg,#234361,#19334e);border-color:#49c4e2;box-shadow:0 0 0 2px rgba(57,195,233,.12),0 12px 24px rgba(0,7,22,.32)}
+.btn.primary{background:linear-gradient(125deg,#1767ab,#0c969f);color:#fff;border-color:#299ac4;box-shadow:0 8px 24px rgba(10,115,174,.27)}
+.btn.primary:hover{box-shadow:0 0 0 2px rgba(48,218,230,.17),0 11px 26px rgba(2,148,188,.28)}
+.btn.dangerbtn{background:#291c2b;color:#ffc1c4;border-color:#7b4352}
+.summary,.kpi,.fxbox,.slidefield,.bank-row,.bank-total,.chartbox{background:linear-gradient(145deg,rgba(18,39,65,.88),rgba(12,27,47,.95));border-color:#2a4866}
+.summary{box-shadow:inset 0 1px 0 rgba(129,209,255,.06)}
+.overline{color:#9bc7e3}.big,.coverage-strong{color:#73dffd;text-shadow:0 0 26px rgba(46,186,239,.15)}.big small,.coverage-strong small{color:#a6d4ee}
+.divider{background:linear-gradient(90deg,transparent,#375571 20%,#375571 80%,transparent)}
+.stat .name,.barlabel,.legend,.conversion,.kpi span{color:#aac0d6}
+.stat strong,.secondary,.coverage-strong strong,.kpi strong,.bank-total strong,.conversion strong{color:#f1f8ff}.secondary{color:#a8d9ff!important}
+.bar{background:#172b43}.bar .equity{background:linear-gradient(90deg,#277bda,#25e3e0)}.bar .debt{background:linear-gradient(90deg,#e8ae5e,#fd8d75)}
+.warning{background:#392a20;border-color:#9a703c;color:#ffd7a2}
+.formula{background:linear-gradient(140deg,#15263d,#0e1c31);border-color:#304b68}.formula code{background:#0a1c32;color:#8ed7ff;border-color:#315474}
+.pill{color:#b7ebf2;background:#123146;border-color:#356d7e}
+.fxbox::before{opacity:.35;background:radial-gradient(circle,rgba(15,209,236,.19),transparent 70%)}
+.conversion{border-top-color:#36516e}.stress-table th,.stress-table td{border-bottom-color:#2c425e}.stress-table th{background:#162b46;color:#b9d3ea}.table-scroll{background:#0d1e33;border-color:#2e4967}.negative{color:#ff939e}.positive{color:#65edbb}
+.slidefield b{color:#87e0ff}.slidefield input{accent-color:#28c7e3}
+.kpi{box-shadow:inset 0 1px 0 rgba(138,220,255,.05)}.kpi::after{display:block;border-color:rgba(54,200,241,.17)}
+.alert{background:#102e2d;color:#9df2d6;border-color:#225d50}.alert.bad{background:#36271e;color:#ffc58e;border-color:#705039}
+.chartbox svg text{fill:#bbd1e5}.bank-row::before{background:linear-gradient(180deg,#40f0e3,#3378ff);box-shadow:0 0 14px rgba(35,200,240,.25)}
+.bank-total{color:#b5d5ed}.site-footer{color:#9db2c9}.site-footer::before{background:linear-gradient(90deg,transparent,#3e677d,transparent)}
+:focus-visible{outline:2px solid #53e1eb;outline-offset:3px}
+@keyframes headerLight{0%,100%{opacity:.5;filter:brightness(.8)}50%{opacity:1;filter:brightness(1.45)}}
+@keyframes accentSweep{0%,100%{opacity:.35}50%{opacity:1}}
+@keyframes aiMatrix{0%{transform:translateY(-10px)}100%{transform:translateY(10px)}}
+@media(max-width:1060px){.headinner{padding-right:0}}
+@media(prefers-reduced-motion:reduce){.panel::before,.fintech-visual::before,.header::after,.live-dot{animation:none!important}}
+
+
+/* Mobile visible motion patch · consistent on iOS Safari / Android Chrome */
+body{isolation:isolate}
+body::before,body::after{z-index:0!important}
+.header,.wrap,.site-footer{z-index:1;position:relative}
+.mobile-ai-scene{display:none;position:relative;isolation:isolate;overflow:hidden;width:100%;height:130px;margin:18px 0 8px;border:1px solid rgba(74,211,240,.38);border-radius:16px;background:radial-gradient(ellipse at 50% 100%,rgba(10,124,188,.28),transparent 65%),repeating-linear-gradient(0deg,transparent 0 21px,rgba(89,182,239,.10) 22px),repeating-linear-gradient(90deg,transparent 0 21px,rgba(89,182,239,.09) 22px),#091c30;box-shadow:inset 0 0 30px rgba(0,208,243,.1),0 9px 28px rgba(0,0,0,.2)}
+.mobile-ai-scene::before{content:"";position:absolute;z-index:2;inset:0;background:linear-gradient(100deg,transparent 20%,rgba(66,219,244,.04) 40%,rgba(117,238,255,.32) 51%,transparent 62%);transform:translateX(-125%);animation:mobileLaser 3.4s linear infinite;will-change:transform}
+.mobile-ai-scene::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 70%,rgba(0,180,240,.13));}
+.mobile-core{position:absolute;width:98px;height:98px;border-radius:50%;top:15px;left:calc(50% - 49px);border:2px solid rgba(49,234,250,.62);border-left-color:transparent;border-bottom-color:rgba(45,118,255,.27);box-shadow:0 0 22px rgba(0,211,248,.3),inset 0 0 26px rgba(8,137,207,.18);animation:mobileTurn 7s linear infinite;will-change:transform}
+.mobile-core::before,.mobile-core::after{content:"";position:absolute;inset:11px;border-radius:50%;border:2px dashed rgba(128,207,255,.48)}
+.mobile-core::after{inset:29px;border-style:solid;border-color:#5ee8fa transparent #5ee8fa transparent;box-shadow:0 0 14px rgba(45,215,255,.28)}
+.mobile-scan{position:absolute;height:2px;left:8%;right:8%;top:22%;z-index:3;background:linear-gradient(90deg,transparent,#83edff,#0088ff,transparent);box-shadow:0 0 16px #35c8ff;animation:mobileScan 3.1s ease-in-out infinite;will-change:transform}
+.mobile-caption{position:absolute;z-index:4;left:12px;bottom:10px;font:700 10px/1.3 ui-monospace,monospace;letter-spacing:.14em;color:#a3e5ff;text-shadow:0 0 8px rgba(0,225,255,.4)}
+.mobile-caption span{display:inline-block;margin-right:7px;width:6px;height:6px;border-radius:50%;background:#4fffd1;box-shadow:0 0 8px #4fffd1;animation:mobileBeat 1.2s ease-in-out infinite}
+.motion-toggle{display:inline-flex;gap:7px;align-items:center;position:absolute;right:0;top:0;z-index:20;border:1px solid #356986;border-radius:999px;color:#c5f6ff;background:rgba(13,40,65,.86);padding:7px 11px;font-size:12px;font-weight:750;cursor:pointer;min-height:36px}
+.motion-toggle:focus-visible{outline:2px solid #75e4fa;outline-offset:2px}
+@keyframes mobileLaser{to{transform:translateX(125%)}}
+@keyframes mobileTurn{to{transform:rotate(360deg)}}
+@keyframes mobileScan{0%,100%{transform:translateY(2px)}50%{transform:translateY(72px)}}
+@keyframes mobileBeat{50%{opacity:.25;transform:scale(.7)}}
+@media(max-width:1060px){.mobile-ai-scene{display:block}.fintech-visual{display:none!important}.header{padding-bottom:74px}.headinner{padding-right:0}}
+@media(max-width:540px){.mobile-ai-scene{height:124px;margin:14px 0 8px}.mobile-core{width:94px;height:94px;left:calc(50% - 47px);top:12px}.headinner{padding-top:40px}.motion-toggle{top:0;right:0}}
+/* OS accessibility defaults honored unless user explicitly enables motion */
+@media(prefers-reduced-motion:reduce){html:not(.motion-on) .mobile-ai-scene::before,html:not(.motion-on) .mobile-core,html:not(.motion-on) .mobile-scan,html:not(.motion-on) .mobile-caption span{animation:none!important}}
+html.motion-off .mobile-ai-scene::before,html.motion-off .mobile-core,html.motion-off .mobile-scan,html.motion-off .mobile-caption span{animation:none!important}
+html.motion-on .mobile-ai-scene::before{animation:mobileLaser 3.4s linear infinite!important}
+html.motion-on .mobile-core{animation:mobileTurn 7s linear infinite!important}
+html.motion-on .mobile-scan{animation:mobileScan 3.1s ease-in-out infinite!important}
+html.motion-on .mobile-caption span{animation:mobileBeat 1.2s ease-in-out infinite!important}
+@media(min-width:1061px){.mobile-ai-scene{display:none}}
 </style>
 </head>
 <body>
-<header class="header"><div class="headinner"><div class="eyebrow">PERSONAL FINANCE / AI DASHBOARD</div><h1>個人投資財務儀表板</h1><p>台美股、匯率、貸款、現金流、壓力測試與歷史追蹤，一頁整合。所有資產金額以新台幣計算。</p></div><div class="tech-stage" aria-hidden="true"><div class="scanner-beam"></div><div class="laser laser-a"></div><div class="laser laser-b"></div><div class="tech-ring ring-a"></div><div class="tech-ring ring-b"></div><div class="tech-node node-a"></div><div class="tech-node node-b"></div><div class="tech-node node-c"></div><div class="machine-core"><div class="machine-arm arm-left"></div><div class="machine-arm arm-right"></div></div></div></header>
+<header class="header"><div class="headinner"><button class="motion-toggle" type="button" id="motionToggle" aria-pressed="true" aria-label="切換科技動畫">動畫：開啟</button><div class="eyebrow">PERSONAL FINANCE / AI OPERATIONS CENTER</div><h1>個人投資財務儀表板</h1><p>台美股、匯率、貸款、現金流、壓力測試與歷史追蹤，一頁整合。所有資產金額以新台幣計算。</p></div><div class="fintech-visual" aria-hidden="true">
+ <div class="market-head"><span class="live-dot"></span> MARKET INTELLIGENCE <span class="market-time">● SYSTEM ACTIVE</span></div>
+ <div class="market-metrics"><div><small>PORTFOLIO / ANALYTICS</small><strong>FINANCIAL <em>OS</em></strong></div><div class="signal-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+ <svg class="market-chart" viewBox="0 0 390 132" preserveAspectRatio="none"><defs><linearGradient id="curve" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#5c91ca"/><stop offset=".52" stop-color="#008caa"/><stop offset="1" stop-color="#1674d5"/></linearGradient><linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#48bdd0" stop-opacity=".28"/><stop offset="1" stop-color="#48bdd0" stop-opacity="0"/></linearGradient></defs>
+ <g stroke="#cbdcec" stroke-width=".8" stroke-dasharray="3 5"><path d="M0 22H390M0 55H390M0 88H390M0 121H390"/><path d="M45 0V132M115 0V132M185 0V132M255 0V132M325 0V132"/></g>
+ <path d="M0 98 L32 89 L60 99 L95 75 L119 81 L153 55 L184 69 L214 53 L248 65 L278 30 L301 40 L339 19 L365 26 L390 10 L390 132 L0 132Z" fill="url(#area)"/>
+ <path class="market-line" d="M0 98 L32 89 L60 99 L95 75 L119 81 L153 55 L184 69 L214 53 L248 65 L278 30 L301 40 L339 19 L365 26 L390 10" stroke="url(#curve)" stroke-width="2.7" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+ <circle class="market-dot" cx="390" cy="10" r="4" fill="#028aaa" stroke="#fff" stroke-width="2"/></svg>
+ <div class="market-footer"><span><b>●</b> SECURE LOCAL ANALYTICS</span><span>01 / 03</span></div>
+ </div><div class="mobile-ai-scene" aria-hidden="true"><div class="mobile-core"></div><div class="mobile-scan"></div><div class="mobile-caption"><span></span>AI SYSTEM / DATA LINK ACTIVE</div></div></header>
 <main class="wrap"><div class="main">
 <section class="panel" aria-labelledby="inputTitle"><h2 id="inputTitle">輸入你的財務數據</h2><p class="hint">台股輸入新台幣、美股輸入美元。匯率自動更新，結果統一換算為新台幣。</p>
 <div class="field"><label for="twStocks">台股總市值 <span class="sub">（新台幣）</span></label><div class="inputwrap"><span class="prefix">NT$</span><input id="twStocks" type="text" inputmode="decimal" autocomplete="off" placeholder="例如：2,000,000"></div></div>
@@ -256,4 +409,24 @@ $('eraseAll').addEventListener('click',()=>{if(!confirm('確定永久清除本�
 restore();renderBanks();calculate();renderHistory();fetchFx();
 })();
 </script>
-<footer class="site-footer"><div>© 2026 pomitsai. All rights reserved.</div><div>本站內容歡迎非商業用途轉載，請務必註明出處並附上原文連結。</div></footer></body></html>
+<footer class="site-footer"><div>© 2026 pomitsai. All rights reserved.</div><div>本站內容歡迎非商業用途轉載，請務必註明出處並附上原文連結。</div></footer><script>
+(function(){
+  var btn=document.getElementById('motionToggle');
+  if(!btn)return;
+  var root=document.documentElement;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var state;
+  try{state=localStorage.getItem('finance-ui-motion');}catch(e){}
+  var active=state==='on'||(state!=='off'&&!reduce);
+  function apply(){
+    root.classList.toggle('motion-on',active);
+    root.classList.toggle('motion-off',!active);
+    btn.textContent=active?'動畫：開啟':'動畫：關閉';
+    btn.setAttribute('aria-pressed',String(active));
+    btn.title=active?'點擊關閉動畫':'點擊啟用動畫';
+  }
+  btn.addEventListener('click',function(){active=!active;try{localStorage.setItem('finance-ui-motion',active?'on':'off');}catch(e){}apply();});
+  apply();
+})();
+</script>
+</body></html>
