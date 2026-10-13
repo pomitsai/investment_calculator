@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#060b16">
+<meta name="theme-color" content="#f2f6fc">
 <title>個人投資財務儀表板｜槓桿、現金流與風險</title>
 <style>
 :root{
@@ -308,6 +308,148 @@ html.motion-on .mobile-core{animation:mobileTurn 7s linear infinite!important}
 html.motion-on .mobile-scan{animation:mobileScan 3.1s ease-in-out infinite!important}
 html.motion-on .mobile-caption span{animation:mobileBeat 1.2s ease-in-out infinite!important}
 @media(min-width:1061px){.mobile-ai-scene{display:none}}
+
+/* 槓桿倍率：淺色數值卡搭配深色文字，手機亦維持高對比 */
+.summary.leverage-summary{background:linear-gradient(135deg,#f6f9ff,#e9f2ff)!important;border:1px solid #c7d8f2!important;box-shadow:inset 0 1px 0 #fff,0 10px 26px rgba(0,0,0,.12)}
+.summary.leverage-summary .big,.summary.leverage-summary .big.secondary{color:#142843!important;text-shadow:none!important;-webkit-text-fill-color:#142843!important}
+.summary.leverage-summary .big small{color:#263c58!important;-webkit-text-fill-color:#263c58!important;text-shadow:none!important}
+.summary.leverage-summary .overline{color:#294b77!important}
+.summary.leverage-summary .helper{color:#415670!important}
+
+/* 現金保障指標：淺色卡片及深色高對比文字（包含動態計算數值） */
+.summary.cash-summary{background:linear-gradient(135deg,#f6fafc,#e8f1fa)!important;border:1px solid #c7d8e9!important;box-shadow:inset 0 1px 0 #fff,0 10px 26px rgba(0,0,0,.12)}
+.summary.cash-summary .coverage-strong,.summary.cash-summary .coverage-strong small{color:#142843!important;-webkit-text-fill-color:#142843!important;text-shadow:none!important}
+.summary.cash-summary .overline{color:#294b77!important;-webkit-text-fill-color:#294b77!important}
+.summary.cash-summary .helper,.summary.cash-summary .mini-message{color:#415670!important;-webkit-text-fill-color:#415670!important;text-shadow:none!important}
+
+/* 深色科技漸層字體：高對比、僅動畫文字，不影響數據運算 */
+@keyframes fintechInkFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes fintechInkGlow{0%,100%{filter:drop-shadow(0 1px 0 rgba(255,255,255,.16))}50%{filter:drop-shadow(0 2px 4px rgba(32,79,145,.15))}}
+.panel[aria-label="計算結果"] h2,
+.summary.leverage-summary .big,
+.summary.leverage-summary .big.secondary,
+.summary.cash-summary .coverage-strong{
+  color:#142b4b!important;
+  background-image:linear-gradient(105deg,#10243e 0%,#234b77 24%,#12273f 45%,#2d6d98 65%,#132947 87%,#10243e 100%)!important;
+  background-size:260% 100%!important;
+  background-position:0% 50%;
+  -webkit-background-clip:text!important;
+  background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  animation:fintechInkFlow 7.5s ease-in-out infinite,fintechInkGlow 4s ease-in-out infinite;
+}
+/* 標籤和單位也使用深色漸層，避免原樣式的純色 important 規則覆蓋 */
+.summary.leverage-summary .overline,
+.summary.cash-summary .overline{
+  color:#22486f!important;
+  background:linear-gradient(100deg,#1c3c63,#3979a4,#153553,#1c3c63) 0 0/260% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent!important;
+  animation:fintechInkFlow 8.8s ease-in-out infinite;
+}
+.summary.leverage-summary .big small,
+.summary.cash-summary .coverage-strong small{
+  color:#183452!important;
+  -webkit-text-fill-color:inherit!important;
+}
+/* 遵守手機及作業系統的減少動態設定，並跟隨頁面動畫切換按鈕 */
+@media(prefers-reduced-motion:reduce){html:not(.motion-on) .panel[aria-label="計算結果"] h2,html:not(.motion-on) .summary.leverage-summary .big,html:not(.motion-on) .summary.cash-summary .coverage-strong,html:not(.motion-on) .summary.leverage-summary .overline,html:not(.motion-on) .summary.cash-summary .overline{animation:none!important;background-position:35% 50%!important}}
+html.motion-off .panel[aria-label="計算結果"] h2,html.motion-off .summary.leverage-summary .big,html.motion-off .summary.cash-summary .coverage-strong,html.motion-off .summary.leverage-summary .overline,html.motion-off .summary.cash-summary .overline{animation:none!important;background-position:35% 50%!important}
+@media(max-width:600px){.summary.leverage-summary .big,.summary.cash-summary .coverage-strong{background-size:200% 100%!important;animation-duration:9s,5s}}
+
+/* === Pearl-light AI finance theme / animated data signal borders === */
+:root{color-scheme:light!important;--bg:#f2f6fc;--bg2:#fbfdff;--panel:rgba(255,255,255,.96);--line:#d5e2f1;--text:#162943;--text-soft:#526780;--text-faint:#71849a;--accent:#2467d9;--accent-2:#00a8d1;--accent-3:#f07a3b;--shadow:0 18px 45px rgba(35,70,121,.09)}
+html,body{color:#162943!important;background:#f2f6fc!important}
+body{background:radial-gradient(ellipse at 86% -6%,rgba(77,150,246,.13),transparent 40%),radial-gradient(ellipse at 6% 30%,rgba(0,184,215,.09),transparent 44%),linear-gradient(180deg,#f9fbff,#eef4fb 46%,#f7faff)!important}
+body::before{background:linear-gradient(rgba(64,116,188,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(64,116,188,.045) 1px,transparent 1px)!important;background-size:36px 36px!important;opacity:.85}
+body::after{opacity:.22!important}
+.header{background:linear-gradient(120deg,rgba(253,254,255,.98),rgba(236,245,255,.98) 65%,rgba(250,247,255,.96))!important;border-bottom:1px solid #d4e4f7!important;box-shadow:inset 0 -1px rgba(255,255,255,.8)}
+.header::before{opacity:.35!important}.header::after{background:linear-gradient(90deg,transparent,#57b9f9,rgba(244,127,60,.35),transparent)!important}
+.header h1{color:#172944!important}.header p{color:#536781!important}.eyebrow{color:#376393!important;background:rgba(255,255,255,.8)!important;border-color:#cbdff3!important}
+.market-head,.market-metrics,.fintech-visual{color:#d8ecff}
+.panel{background:linear-gradient(160deg,rgba(255,255,255,.98),rgba(249,252,255,.98))!important;border:1px solid #d7e5f5!important;box-shadow:0 18px 42px rgba(23,67,124,.09),inset 0 1px rgba(255,255,255,.95)!important}
+.panel::before{background:linear-gradient(90deg,transparent,#4bafff,#f18a53,#2b87e7,transparent)!important;animation:accentSweep 6s ease-in-out infinite}
+.panel h2,.panel h3,.section-inline h3,.field label,.bank-name-label,.slidefield label,.formula strong{color:#18314e!important}
+.hint,.helper,.mini-message,.note,.minor,.disclaimer,.fxinfo,.stress-foot,.formula p,.field .sub{color:#536981!important}
+.inputwrap,.bank-name,.plaininput{background:linear-gradient(180deg,#fff,#f5f9fe)!important;border-color:#cddff1!important;box-shadow:inset 0 1px rgba(255,255,255,.9)!important}
+.inputwrap input,.bank-name,.plaininput{color:#142a43!important}.inputwrap input::placeholder,.plaininput::placeholder,.bank-name::placeholder{color:#889ab1!important}
+.inputwrap:focus-within,.bank-name:focus,.plaininput:focus{border-color:#49a3f2!important;box-shadow:0 0 0 3px rgba(47,119,255,.12)!important}
+.prefix{background:#eff5fc!important;color:#4c6889!important;border-color:#d7e4f3!important}
+.btn{background:linear-gradient(180deg,#fff,#f1f6fd)!important;color:#27425f!important;border-color:#c9dcef!important;box-shadow:0 4px 12px rgba(45,91,157,.08)!important}
+.btn:hover{border-color:#6daeea!important;box-shadow:0 7px 18px rgba(45,91,157,.14)!important}
+.btn.primary{background:linear-gradient(110deg,#2468de,#12a6d3)!important;color:white!important;border-color:#3489da!important}
+.btn.dangerbtn{background:#fff6f7!important;color:#a23f4c!important;border-color:#ebc8cf!important}
+.motion-toggle{background:rgba(255,255,255,.95)!important;color:#265a8f!important;border:1px solid #aecbe8!important;box-shadow:0 6px 16px rgba(31,78,137,.08)!important}
+.summary,.summary.leverage-summary,.summary.cash-summary,.kpi,.fxbox,.slidefield,.bank-row,.bank-total,.chartbox{background:linear-gradient(135deg,#fafdff,#eef5ff)!important;border:1px solid #d5e3f3!important;box-shadow:inset 0 1px white,0 8px 20px rgba(44,91,150,.055)!important}
+.summary.leverage-summary{background:linear-gradient(135deg,#f9fbff,#eaf3ff)!important}
+.summary.cash-summary{background:linear-gradient(135deg,#faffff,#edf7fc)!important}
+.overline,.summary.leverage-summary .overline,.summary.cash-summary .overline{color:#285078!important}.stat .name,.barlabel,.legend,.conversion,.kpi span{color:#536c87!important}
+.stat strong,.secondary,.kpi strong,.bank-total strong,.conversion strong{color:#1c3551!important}.secondary{color:#244f82!important}
+.summary .helper,.summary .mini-message,.summary.leverage-summary .helper,.summary.cash-summary .helper,.summary.cash-summary .mini-message{color:#45617f!important}
+.divider{background:linear-gradient(90deg,transparent,#d0e0f1,transparent)!important}
+.warning{background:#fff7ea!important;color:#835414!important;border:1px solid #efd7a9!important}
+.fxbox::before{background:radial-gradient(circle,rgba(47,119,255,.09),transparent 65%)!important}
+.formula{background:linear-gradient(140deg,#fff,#f6faff)!important;border-color:#d8e7f6!important}.formula code{background:#eef5fd!important;color:#25538b!important;border-color:#d4e3f2!important}
+.pill{background:#f2f8ff!important;color:#3e6791!important;border-color:#cfdfef!important}
+.table-scroll{background:#fff!important;border-color:#d4e4f4!important}.stress-table th{background:#ecf4fd!important;color:#395b80!important}.stress-table th,.stress-table td{border-bottom-color:#e2eaf5!important}.stress-table td{color:#203a56}.stress-table td.negative{color:#bd3e53!important}.negative{color:#bd3e53!important}.positive{color:#157f66!important}
+.slidefield b{color:#235caa!important}.slidefield input{accent-color:#2f7fe9!important}
+.alert{background:#e9f8f3!important;color:#176b53!important;border-color:#c5e9dc!important}.alert.bad{background:#fff4ea!important;color:#9b5018!important;border-color:#f2d8bd!important}
+.chartbox svg text{fill:#607a99!important}
+.bank-row::before{background:linear-gradient(180deg,#39d4e8,#377fea,#ff9457)!important}
+.bank-total{color:#315579!important}.site-footer{color:#5b718c!important}.site-footer::before{background:linear-gradient(90deg,transparent,#cfdeee,transparent)!important}
+:focus-visible{outline:2px solid #398df0!important}
+/* animated dark readable navy-blue -> cobalt -> restrained iPhone-inspired warm orange */
+@keyframes arcticCopperFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes borderPhoton{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+@keyframes shineOrbit{0%{transform:translateX(-140%)}100%{transform:translateX(180%)}}
+.header h1,.panel h2,.panel h3,.section-inline h3,
+.summary.leverage-summary .big,.summary.leverage-summary .big.secondary,
+.summary.cash-summary .coverage-strong,
+.summary.leverage-summary .overline,.summary.cash-summary .overline,
+.kpi strong{
+ color:#193d69!important;
+ background-image:linear-gradient(110deg,#163454 0%,#245a98 24%,#1b78ba 42%,#d86932 56%,#246db3 76%,#173b65 100%)!important;
+ background-size:280% 100%!important;
+ -webkit-background-clip:text!important;background-clip:text!important;
+ -webkit-text-fill-color:transparent!important;
+ text-shadow:none!important;
+ animation:arcticCopperFlow 10s ease-in-out infinite!important;
+}
+.summary.leverage-summary .big small,.summary.cash-summary .coverage-strong small{color:#23466b!important;-webkit-text-fill-color:#23466b!important}
+/* A lightweight photon track lives on table border; content remains untouched */
+.table-scroll{position:relative!important;isolation:isolate!important;border:1px solid #d2e3f5!important;border-radius:14px!important;overflow:auto!important;box-shadow:0 0 0 1px rgba(255,255,255,.7),0 8px 25px rgba(20,83,163,.05)!important}
+.table-scroll::before{content:"";position:sticky;display:block;top:0;left:0;height:2px;width:100%;z-index:3;pointer-events:none;background:linear-gradient(90deg,transparent 0%,#3a96eb 18%,#76e6ee 33%,#ff914f 50%,#3a96eb 67%,transparent 83%);background-size:200% 100%;animation:borderPhoton 7s linear infinite}
+.table-scroll::after{content:"";position:absolute;inset:0;border-radius:14px;border:1px solid rgba(75,143,223,.3);pointer-events:none;z-index:2}
+/* Animated perimeter accent for data cards, no layout shifts and no table text masking */
+.kpi::before,.summary::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;border:1px solid rgba(45,143,237,.23);background:linear-gradient(110deg,transparent 36%,rgba(38,142,245,.12) 45%,rgba(247,130,67,.14) 52%,transparent 60%) 0 0/240% 100%;animation:arcticCopperFlow 12s ease-in-out infinite;opacity:.75}
+/* lighter mobile visible tech scene */
+.mobile-ai-scene{background:radial-gradient(ellipse at 55% 100%,rgba(21,139,216,.22),transparent 68%),repeating-linear-gradient(0deg,transparent 0 21px,rgba(75,141,216,.12) 22px),repeating-linear-gradient(90deg,transparent 0 21px,rgba(75,141,216,.11) 22px),#eff7ff!important;border-color:#afd5f2!important;box-shadow:inset 0 0 25px rgba(45,138,213,.10),0 8px 22px rgba(47,101,161,.1)!important}
+.mobile-caption{color:#215886!important;text-shadow:none!important}
+.mobile-core{border-color:#237ada!important;border-left-color:transparent!important;border-bottom-color:#f5955f!important;box-shadow:0 0 16px rgba(47,119,255,.13)!important}
+.mobile-scan{background:linear-gradient(90deg,transparent,#358fed,#f18a53,transparent)!important;box-shadow:0 0 12px rgba(40,133,222,.28)!important}
+@media(prefers-reduced-motion:reduce){html:not(.motion-on) .header h1,html:not(.motion-on) .panel h2,html:not(.motion-on) .panel h3,html:not(.motion-on) .section-inline h3,html:not(.motion-on) .summary.leverage-summary .big,html:not(.motion-on) .summary.cash-summary .coverage-strong,html:not(.motion-on) .summary .overline,html:not(.motion-on) .kpi strong,html:not(.motion-on) .table-scroll::before,html:not(.motion-on) .kpi::before,html:not(.motion-on) .summary::before{animation:none!important}}
+html.motion-off .header h1,html.motion-off .panel h2,html.motion-off .panel h3,html.motion-off .section-inline h3,html.motion-off .summary.leverage-summary .big,html.motion-off .summary.cash-summary .coverage-strong,html.motion-off .summary .overline,html.motion-off .kpi strong,html.motion-off .table-scroll::before,html.motion-off .kpi::before,html.motion-off .summary::before{animation:none!important}
+@media(max-width:600px){.header h1,.summary.leverage-summary .big,.summary.cash-summary .coverage-strong{animation-duration:12s!important}.table-scroll::before{height:3px}}
+
+
+/* Clean finance content surfaces: animated colour is confined to the outer border. */
+.panel[aria-label="計算結果"]{background:#ffffff!important;isolation:isolate!important}
+.panel[aria-label="計算結果"]::after{display:none!important}
+.panel[aria-label="計算結果"] .summary,
+.panel[aria-label="計算結果"] .summary.leverage-summary,
+.panel[aria-label="計算結果"] .summary.cash-summary{
+ background:#f5f9fe!important;
+ background-image:none!important;
+ border:1px solid #d7e6f5!important;
+ box-shadow:0 6px 18px rgba(35,84,155,.045)!important;
+}
+/* Prevent bright diagonal bands from overlaying any value, title, or helper text. */
+.panel[aria-label="計算結果"] .summary::before,
+.panel[aria-label="計算結果"] .summary::after,
+.kpi::before{content:none!important;display:none!important;animation:none!important;background:none!important}
+.panel[aria-label="計算結果"] .summary > *{position:relative;z-index:1}
+@media(max-width:600px){.panel[aria-label="計算結果"] .summary{background:#f5f9fe!important}}
 </style>
 </head>
 <body>
@@ -334,10 +476,10 @@ html.motion-on .mobile-caption span{animation:mobileBeat 1.2s ease-in-out infini
 <div class="field"><label for="living">每月必要生活費（不含貸款月付金）</label><div class="inputwrap"><span class="prefix">NT$</span><input id="living" inputmode="decimal" type="text" placeholder="例如：35,000"></div><p class="mini-message">避免把信貸還款重複算進生活費。</p></div></div>
 <div class="actions"><button class="btn" id="reset" type="button">清除財務數據</button><span class="note">本機試算 · 財務金額不會上傳</span></div></section>
 <section class="panel" aria-label="計算結果"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2>槓桿分析結果</h2><span class="pill">即時計算</span></div><p class="hint" style="margin-bottom:0">分別觀察整體槓桿、股票市場風險與信貸還款緩衝。</p>
-<div class="summary"><div class="overline">總資產槓桿倍數</div><div class="big" id="assetLev">—<small>倍</small></div><div class="helper">總資產 ÷ 淨資產。衡量整體資產相對自有淨值的放大程度。</div></div>
-<div class="summary" style="background:#f7f8fc"><div class="overline">股票曝險倍數</div><div class="big secondary" id="stockLev">—<small>倍</small></div><div class="helper">股票總市值 ÷ 淨資產。衡量股票價格波動對自有淨值的曝險程度。</div></div>
-<div class="summary" style="background:#eff9f7"><div class="overline">現金還款保障月數</div><div class="coverage-strong" id="coverage">—<small> 個月</small></div><div class="helper">銀行活存 ÷ 每月貸款還款金額。僅衡量信貸，不包含生活費或其他固定開銷。</div><div class="mini-message" id="coverageNote">請輸入活存及每月貸款還款金額。</div></div>
-<div class="summary" style="background:#f4f9ff"><div class="overline">零收入現金安全月數</div><div class="coverage-strong" id="runway">—</div><div class="helper">銀行活存 ÷（必要生活費＋貸款月付金）。假設完全沒有收入，且每月支出固定。</div><div class="mini-message" id="cashflowDetail">請輸入每月生活費與貸款月付金。</div></div>
+<div class="summary leverage-summary"><div class="overline">總資產槓桿倍數</div><div class="big" id="assetLev">—<small>倍</small></div><div class="helper">總資產 ÷ 淨資產。衡量整體資產相對自有淨值的放大程度。</div></div>
+<div class="summary leverage-summary" style="background:#f7f8fc"><div class="overline">股票曝險倍數</div><div class="big secondary" id="stockLev">—<small>倍</small></div><div class="helper">股票總市值 ÷ 淨資產。衡量股票價格波動對自有淨值的曝險程度。</div></div>
+<div class="summary cash-summary" style="background:#eff9f7"><div class="overline">現金還款保障月數</div><div class="coverage-strong" id="coverage">—<small> 個月</small></div><div class="helper">銀行活存 ÷ 每月貸款還款金額。僅衡量信貸，不包含生活費或其他固定開銷。</div><div class="mini-message" id="coverageNote">請輸入活存及每月貸款還款金額。</div></div>
+<div class="summary cash-summary" style="background:#f4f9ff"><div class="overline">零收入現金安全月數</div><div class="coverage-strong" id="runway">—</div><div class="helper">銀行活存 ÷（必要生活費＋貸款月付金）。假設完全沒有收入，且每月支出固定。</div><div class="mini-message" id="cashflowDetail">請輸入每月生活費與貸款月付金。</div></div>
 <div class="divider"></div><div class="stat"><span class="name">股票總市值（NT$）</span><strong id="allStocks">—</strong></div><div class="stat"><span class="name">總資產</span><strong id="assets">—</strong></div><div class="stat"><span class="name">剩餘信貸本金</span><strong id="debt">—</strong></div><div class="stat"><span class="name">淨資產（自有權益）</span><strong id="equity">—</strong></div><div class="stat"><span class="name">負債占資產比例</span><strong id="debtRatio">—</strong></div>
 <div class="barlabel"><span>資產資金結構</span><span id="ratioLabel">待輸入</span></div><div class="bar" role="img" aria-label="自有權益與負債比例"><div id="equityBar" class="equity" style="width:0%"></div><div id="debtBar" class="debt" style="width:0%"></div></div><div class="legend"><span><i class="dot"></i>淨資產</span><span><i class="dot orange"></i>投資用途貸款負債</span></div><div id="warning" class="warning" hidden></div>
 </section></div>
